@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/smartnews/static/css/main.073c9b0a.css",
+    "main.js": "/smartnews/static/js/main.bb443f3b.js",
+    "static/js/787.75cdc2ad.chunk.js": "/smartnews/static/js/787.75cdc2ad.chunk.js",
+    "static/media/Spinner-5.gif": "/smartnews/static/media/Spinner-5.e9202c75d969bfbffe5a.gif",
+    "static/media/logo.svg": "/smartnews/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "index.html": "/smartnews/index.html",
+    "main.073c9b0a.css.map": "/smartnews/static/css/main.073c9b0a.css.map",
+    "main.bb443f3b.js.map": "/smartnews/static/js/main.bb443f3b.js.map",
+    "787.75cdc2ad.chunk.js.map": "/smartnews/static/js/787.75cdc2ad.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.073c9b0a.css",
+    "static/js/main.bb443f3b.js"
+  ]
+}
