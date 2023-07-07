@@ -6,57 +6,43 @@ import PropTypes from 'prop-types'
 export class News extends Component {
   static defaultProps ={
     country: 'in',
-    pageSize:8,
+    pageSize:9,
     category: 'general',
   }
-  static PropTypes = {
+  static propTypes = {
     country:PropTypes.string,
     category:PropTypes.string,
     //apiKey:"your_api",
     pageSize:PropTypes.number,
     }
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state ={
             articles:[],
             loading : false,
             page: 1
         }
+        document.title=`${this.capitalizeFirstLetter(this.props.category)} - SmartNews`;
+    }
+    capitalizeFirstLetter = (string) =>{
+      return string.charAt(0).toUpperCase() + string.slice(1);
     }
     handlenext = async () => {
-          let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apikey=9f0ae2c8163e4c11806a6725af68e366&page=${this.state.page+1}&pageSize=${this.props.pageSize}`;
-          this.setState({
-            loading: true
-          })
-          let data= await fetch(url);
-          let parsedData =await data.json();
-            this.setState({
-                page: this.state.page + 1,
-                articles: parsedData.articles,
-                loading:false
-              }
-            )
+            this.setState({page:this.state.page + 1});
+            this.updateNews();
         }
     handleprev= async ()=>{
-
-      let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apikey=9f0ae2c8163e4c11806a6725af68e366&page=${this.state.page-1}&pageSize=${this.props.pageSize}`;
-      this.setState({
-        loading: true
-      })
-      let data= await fetch(url);
-      let parsedData =await data.json();
-        this.setState({
-            page: this.state.page - 1,
-            articles: parsedData.articles,
-            loading: false
-          }
-        )
+        this.setState({page:this.state.page - 1});
+        this.updateNews();
     }
 
     //componentDidMount runs after render method
     //async function apni body main kuch promises ke resolve hone ka wait kar skta hai
     async componentDidMount(){
-      let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apikey=9f0ae2c8163e4c11806a6725af68e366&page=1&pageSize=${this.props.pageSize}`
+      this.updateNews();
+    }
+    async updateNews(){
+      const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apikey=b0c3b61159f54752b057f0b38929e246&page=${this.state.page}&pageSize=${this.props.pageSize}`
       this.setState({
         loading: true
       })
@@ -72,12 +58,14 @@ export class News extends Component {
   render() {
     return (
       <div className='container my-3'>
-        <h1 className="text-center">Smart News- Top Headlines</h1>
+        <h1 className="text-center">Smart News- Top {this.capitalizeFirstLetter(this.props.category)} Headlines</h1>
         {this.state.loading && <Spinner />}
         <div className="row">
             {!this.state.loading && this.state.articles.map((element)=>{
                 return <div className="col-md-4" key={element.url}>
-                <NewsItem title={element.title?element.title:""} description={element.description?element.description:""} imageUrl={element.urlToImage?element.urlToImage:"https://www.vskills.in/certification/blog/wp-content/uploads/2015/01/structure-of-a-news-report.jpg"} newsUrl={element.url} />
+                <NewsItem title={element.title?element.title:""} description={element.description?element.description:""}
+                 imageUrl={element.urlToImage?element.urlToImage:"https://www.vskills.in/certification/blog/wp-content/uploads/2015/01/structure-of-a-news-report.jpg"} 
+                 newsUrl={element.url} author={element.author?element.author:'Unknown'} date={element.publishedAt} source={element.source.name}/>
                 </div>
             })}
         </div>
