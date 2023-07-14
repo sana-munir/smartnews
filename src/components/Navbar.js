@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 
-export class Navbar extends Component {
-  render() {
+const Navbar = () => {
     return (
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav className="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
         <div className="container-fluid">
           <Link className="navbar-brand" to="/"><strong>SmartNews</strong></Link>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,16 +35,22 @@ export class Navbar extends Component {
               <li className="nav-item">
                 <Link className="nav-link active" aria-current="page" to="/Technology">Technology</Link>
               </li>
-            </ul>
-            <form className="d-flex" role="search">
-              <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-              <button className="btn btn-outline-success" type="submit">Search</button>
-            </form>
+            <li class="nav-item dropdown" style={{marginLeft:'400px'}}>
+          <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" style={{color:'lightgreen'}} >
+            <strong>Select Country</strong>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><hr class="dropdown-divider"  /></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
+        </li>
+        </ul>
           </div>
         </div>
       </nav>
     )
-  }
 }
 
 export default Navbar;
