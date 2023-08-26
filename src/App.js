@@ -1,6 +1,6 @@
 import './App.css';
 
-import React, { useState } from 'react'
+import React, { useState, useEffect} from 'react'
 import Navbar from './components/Navbar';
 import News from './components/News';
 import {
@@ -13,14 +13,21 @@ import LoadingBar from 'react-top-loading-bar';
 
 const App = () => {
   const pageSize= 9;
-  const [country,setCountry]= useState("in");
+  const countryParam = new URLSearchParams(window.location.search).get('country');
+  const [country, setCountry] = useState(countryParam || 'in');
+  //const [country,setCountry]= useState("in");
   const apikey= process.env.REACT_APP_NEWS_API;
   const [progress, setProgress] = useState(0);
+  const changeCountry = (cty) => {
+    const urlParams = new URLSearchParams(window.location.search);
+    urlParams.set('country', cty);
+    window.location.href = `${window.location.pathname}?${urlParams.toString()}`;
+  };
   
     return (
       <>
     <Router basename='/smartnews'>
-    <Navbar />
+    <Navbar changecountry={changeCountry}/>
     <LoadingBar
         color='#f11946'
         progress={progress}
